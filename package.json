@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "A simple project with a single failing test",
   "scripts": {
+    "build": "tsc --build",
     "test": "mocha test/**/*spec.js"
   },
   "dependencies": {
@@ -13,15 +14,12 @@
   "directories": {
     "test": "test"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/syngenta-digital/challenge-js-test-project.git"
-  },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/syngenta-digital/challenge-js-test-project/issues"
-  },
-  "homepage": "https://github.com/syngenta-digital/challenge-js-test-project#readme"
+  
+  "devDependencies": {
+    "@types/node": "^17.0.31",
+    "typescript": "^4.6.4"
+  }
 }
