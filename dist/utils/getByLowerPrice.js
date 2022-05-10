@@ -1,10 +1,27 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getByLowerPrice = void 0;
-function getByLowerPrice(hotels) {
+exports.rewards = exports.regular = void 0;
+function regular(hotels, weekend) {
+    if (weekend)
+        return Math.min.apply(Math, hotels.map(function (_a) {
+            var weekend = _a.weekend;
+            return weekend.customerType.regular;
+        }));
     return Math.min.apply(Math, hotels.map(function (_a) {
-        var price = _a.price;
-        return price;
+        var weekday = _a.weekday;
+        return weekday.customerType.regular;
     }));
 }
-exports.getByLowerPrice = getByLowerPrice;
+exports.regular = regular;
+function rewards(hotels, weekend) {
+    if (weekend)
+        return Math.min.apply(Math, hotels.map(function (_a) {
+            var weekend = _a.weekend;
+            return weekend.customerType.rewards;
+        }));
+    return Math.min.apply(Math, hotels.map(function (_a) {
+        var weekday = _a.weekday;
+        return weekday.customerType.rewards;
+    }));
+}
+exports.rewards = rewards;

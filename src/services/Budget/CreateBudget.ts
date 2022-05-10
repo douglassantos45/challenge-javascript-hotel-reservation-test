@@ -1,56 +1,69 @@
-import { getBudget } from "./calculateBudget";
-
-import { getByLowerPrice, getByHigherRating } from "../../utils/index";
+import { regular, rewards } from "../../utils/index";
 
 export type HotelProps = {
   name: string;
   rating: number;
-  daily: {
+  weekday: {
     customerType: {
       regular: number;
       rewards: number;
     };
   };
-  taxSat: number;
-  taxSun: number;
-};
-
-export type HotelBudgetProps = {
-  name: string;
-  rating: number;
-  price: number;
+  weekend: {
+    customerType: {
+      regular: number;
+      rewards: number;
+    };
+  };
 };
 
 export class CreateBudgetServices {
-  execute(
-    weekDays: string[],
-    customerType: string,
-    hotels: HotelProps[]
-  ): HotelBudgetProps[] {
-    const hotelsBudget = [];
+  find(days: string[], customerTyper: string, hotels: HotelProps[]) {
+    const weekEnds = ["sat", "sun"];
 
-    hotels?.forEach((hotel) => {
-      switch (hotel.name) {
-        case "Bridgewood":
-          hotelsBudget.push(getBudget(hotel, customerType, weekDays));
-          break;
-        case "Lakewood":
-          hotelsBudget.push(getBudget(hotel, customerType, weekDays));
-          break;
-        case "Ridgewood":
-          hotelsBudget.push(getBudget(hotel, customerType, weekDays));
-          break;
+    let isWeekEnd = false;
 
-        default:
-          break;
+    weekEnds.map((weekend) => {
+      if (days.includes(weekend)) {
+        return (isWeekEnd = true);
       }
     });
 
-    return hotelsBudget;
-  }
+    if (customerTyper === "Regular") {
+      const lowestPrice = regular(hotels, isWeekEnd);
 
-  find(hotels: HotelBudgetProps[]) {
-    const lowestPrice = getByLowerPrice(hotels);
+      if (isWeekEnd) {
+        const lowestPrices = hotels.filter(
+          ({ weekend }) => weekend.customerType.regular === lowestPrice
+        );
+
+        return lowestPrices[0].name;
+      }
+
+      const lowestPrices = hotels.filter(
+        ({ weekday }) => weekday.customerType.regular === lowestPrice
+      );
+      return lowestPrices[0].name;
+      //
+    } else if (customerTyper === "Rewards") {
+      const lowestPrice = rewards(hotels, isWeekEnd);
+
+      if (isWeekEnd) {
+        const lowestPrices = hotels.filter(
+          ({ weekend }) => weekend.customerType.rewards === lowestPrice
+        );
+
+        return lowestPrices[0].name;
+      }
+
+      const lowestPrices = hotels.filter(
+        ({ weekday }) => weekday.customerType.rewards === lowestPrice
+      );
+
+      return lowestPrices[0].name;
+    }
+
+    /*  const lowestPrice = getByLowerPrice(hotels);
     const lowestPrices = hotels.filter(({ price }) => price === lowestPrice);
     const budgets = lowestPrices.map(({ price }) => price);
 
@@ -64,6 +77,6 @@ export class CreateBudgetServices {
     }
     const { name } = lowestPrices[0];
 
-    return name;
+    return name; */
   }
 }

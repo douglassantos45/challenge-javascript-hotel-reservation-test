@@ -2,37 +2,49 @@ module.exports = [
   {
     name: "Bridgewood",
     rating: 4,
-    daily: {
+    weekday: {
       customerType: {
         regular: 160,
         rewards: 110,
       },
     },
-    taxSat: 50,
-    taxSun: 60,
+    weekend: {
+      customerType: {
+        regular: 50,
+        rewards: 60,
+      },
+    },
   },
   {
     name: "Lakewood",
     rating: 3,
-    daily: {
+    weekday: {
       customerType: {
         regular: 110,
         rewards: 80,
       },
     },
-    taxSat: 90,
-    taxSun: 80,
+    weekend: {
+      customerType: {
+        regular: 90,
+        rewards: 80,
+      },
+    },
   },
   {
     name: "Ridgewood",
     rating: 5,
-    daily: {
+    weekday: {
       customerType: {
         regular: 220,
         rewards: 100,
       },
     },
-    taxSat: 150,
-    taxSun: 40,
+    weekend: {
+      customerType: {
+        regular: 150,
+        rewards: 40,
+      },
+    },
   },
 ];

@@ -3,7 +3,6 @@ const utils = require("../dist/utils/index");
 
 const hotels = require("./database/hotels");
 
-const applyingBudget = BudgetController.applyingBudget;
 const adviseCheapestHotel = BudgetController.adviseCheapestHotel;
 
 const getByWeekDay = utils.getByWeekDay;
@@ -13,9 +12,8 @@ function getCheapesttHotel(input) {
     const [customerType, inputDate] = input.split(":");
     const dates = inputDate.split(",");
 
-    const weekDays = getByWeekDay(dates);
-    const budgets = applyingBudget(weekDays, customerType, hotels);
-    const hotel = adviseCheapestHotel(budgets);
+    const days = getByWeekDay(dates);
+    const hotel = adviseCheapestHotel(days, customerType, hotels);
 
     return hotel;
   } catch (err) {

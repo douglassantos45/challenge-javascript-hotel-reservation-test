@@ -5,15 +5,10 @@ var index_1 = require("../services/index");
 var BudgetController = /** @class */ (function () {
     function BudgetController() {
     }
-    BudgetController.prototype.adviseCheapestHotel = function (hotels) {
+    BudgetController.prototype.adviseCheapestHotel = function (days, customerType, hotels) {
         var createBudgetServices = new index_1.CreateBudgetServices();
-        var hotel = createBudgetServices.find(hotels);
+        var hotel = createBudgetServices.find(days, customerType, hotels);
         return hotel;
-    };
-    BudgetController.prototype.applyingBudget = function (weekDays, customerType, hotels) {
-        var createBudgetServices = new index_1.CreateBudgetServices();
-        var budgets = createBudgetServices.execute(weekDays, customerType, hotels);
-        return budgets;
     };
     return BudgetController;
 }());

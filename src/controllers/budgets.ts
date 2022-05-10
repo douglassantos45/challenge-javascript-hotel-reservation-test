@@ -6,29 +6,29 @@ import {
 export type HotelProps = {
   name: string;
   rating: number;
-  price: number;
+  weekday: {
+    customerType: {
+      regular: number;
+      rewards: number;
+    };
+  };
+  weekend: {
+    customerType: {
+      regular: number;
+      rewards: number;
+    };
+  };
 };
 
 export class BudgetController {
-  adviseCheapestHotel(hotels: HotelProps[]) {
-    const createBudgetServices = new CreateBudgetServices();
-    const hotel = createBudgetServices.find(hotels);
-
-    return hotel;
-  }
-
-  applyingBudget(
-    weekDays: string[],
+  adviseCheapestHotel(
+    days: string[],
     customerType: string,
-    hotels: HotelBudgetProps[]
+    hotels: HotelProps[]
   ) {
     const createBudgetServices = new CreateBudgetServices();
-    const budgets = createBudgetServices.execute(
-      weekDays,
-      customerType,
-      hotels
-    );
+    const hotel = createBudgetServices.find(days, customerType, hotels);
 
-    return budgets;
+    return hotel;
   }
 }
