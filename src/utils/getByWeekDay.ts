@@ -1,8 +1,8 @@
 export function getByWeekDay(dates: string[]) {
   return dates?.map((date) => {
-    const weekDays = String(new Date(date));
-    const [weekDay] = weekDays.split(" ");
+    const days = String(new Date(date));
+    const [day] = days.split(" ");
 
-    return weekDay.toLowerCase();
+    return day.toLowerCase();
   });
 }

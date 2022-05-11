@@ -1,4 +1,6 @@
-import { regular, rewards } from "../../utils/index";
+import { getBudget } from "./calculateBudget";
+
+import { getByLowerPrice, getByHigherRating } from "../../utils/index";
 
 export type HotelProps = {
   name: string;
@@ -17,53 +19,29 @@ export type HotelProps = {
   };
 };
 
+export type HotelBudgetProps = {
+  name: string;
+  rating: number;
+  price: number;
+};
+
 export class CreateBudgetServices {
-  find(days: string[], customerTyper: string, hotels: HotelProps[]) {
-    const weekEnds = ["sat", "sun"];
+  execute(
+    days: string[],
+    customerType: string,
+    hotels: HotelProps[]
+  ): HotelBudgetProps[] {
+    const hotelsBudget = [];
 
-    let isWeekEnd = false;
-
-    weekEnds.map((weekend) => {
-      if (days.includes(weekend)) {
-        return (isWeekEnd = true);
-      }
+    hotels?.forEach((hotel) => {
+      hotelsBudget.push(getBudget(hotel, customerType, days));
     });
 
-    if (customerTyper === "Regular") {
-      const lowestPrice = regular(hotels, isWeekEnd);
+    return hotelsBudget;
+  }
 
-      if (isWeekEnd) {
-        const lowestPrices = hotels.filter(
-          ({ weekend }) => weekend.customerType.regular === lowestPrice
-        );
-
-        return lowestPrices[0].name;
-      }
-
-      const lowestPrices = hotels.filter(
-        ({ weekday }) => weekday.customerType.regular === lowestPrice
-      );
-      return lowestPrices[0].name;
-      //
-    } else if (customerTyper === "Rewards") {
-      const lowestPrice = rewards(hotels, isWeekEnd);
-
-      if (isWeekEnd) {
-        const lowestPrices = hotels.filter(
-          ({ weekend }) => weekend.customerType.rewards === lowestPrice
-        );
-
-        return lowestPrices[0].name;
-      }
-
-      const lowestPrices = hotels.filter(
-        ({ weekday }) => weekday.customerType.rewards === lowestPrice
-      );
-
-      return lowestPrices[0].name;
-    }
-
-    /*  const lowestPrice = getByLowerPrice(hotels);
+  find(hotels: HotelBudgetProps[]) {
+    const lowestPrice = getByLowerPrice(hotels);
     const lowestPrices = hotels.filter(({ price }) => price === lowestPrice);
     const budgets = lowestPrices.map(({ price }) => price);
 
@@ -75,8 +53,9 @@ export class CreateBudgetServices {
 
       return hotel.name;
     }
+
     const { name } = lowestPrices[0];
 
-    return name; */
+    return name;
   }
 }

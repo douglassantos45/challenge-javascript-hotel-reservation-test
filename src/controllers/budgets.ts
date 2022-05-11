@@ -1,34 +1,23 @@
-import {
-  CreateBudgetServices,
-  HotelProps as HotelBudgetProps,
-} from "../services/index";
+import { CreateBudgetServices, HotelProps } from "../services/index";
 
-export type HotelProps = {
+export type HotelBudgetProps = {
   name: string;
   rating: number;
-  weekday: {
-    customerType: {
-      regular: number;
-      rewards: number;
-    };
-  };
-  weekend: {
-    customerType: {
-      regular: number;
-      rewards: number;
-    };
-  };
+  price: number;
 };
 
 export class BudgetController {
-  adviseCheapestHotel(
-    days: string[],
-    customerType: string,
-    hotels: HotelProps[]
-  ) {
+  adviseCheapestHotel(hotels: HotelBudgetProps[]) {
     const createBudgetServices = new CreateBudgetServices();
-    const hotel = createBudgetServices.find(days, customerType, hotels);
+    const hotel = createBudgetServices.find(hotels);
 
     return hotel;
+  }
+
+  applyingBudget(days: string[], customerType: string, hotels: HotelProps[]) {
+    const createBudgetServices = new CreateBudgetServices();
+    const budgets = createBudgetServices.execute(days, customerType, hotels);
+
+    return budgets;
   }
 }

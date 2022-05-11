@@ -1,29 +1,27 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getBudget = void 0;
-function calculateBudget(weekDays, daily, taxSat, taxSun) {
+function calculateBudget(days, dailyWeekEnd, dailyWeekDay) {
     var budget = 0;
-    var calcTax = 0;
-    weekDays.forEach(function (weekDay) {
-        switch (weekDay) {
+    days.forEach(function (day) {
+        switch (day) {
             case "sat":
-                calcTax += taxSat;
+                budget += dailyWeekEnd;
                 break;
             case "sun":
-                calcTax += taxSun;
+                budget += dailyWeekEnd;
                 break;
             default:
-                budget += daily;
+                budget += dailyWeekDay;
                 break;
         }
     });
-    return budget + calcTax;
+    return budget;
 }
-function getBudget(hotel, customerType, weekDays) {
-    var daily = hotel.daily.customerType[customerType.toLowerCase()];
-    var taxSat = hotel.taxSat;
-    var taxSun = hotel.taxSun;
-    var budget = calculateBudget(weekDays, daily, taxSat, taxSun);
+function getBudget(hotel, customerType, days) {
+    var dailyWeekEnd = hotel.weekend.customerType[customerType.toLowerCase()];
+    var dailyWeekDay = hotel.weekday.customerType[customerType.toLocaleLowerCase()];
+    var budget = calculateBudget(days, dailyWeekEnd, dailyWeekDay);
     return {
         name: hotel.name,
         rating: hotel.rating,
