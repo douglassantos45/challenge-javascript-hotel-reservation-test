@@ -7,7 +7,7 @@ function calculateBudget(
 ) {
   let budget = 0;
 
-  days.forEach((day) => {
+  days?.forEach((day) => {
     switch (day) {
       case "sat":
         budget += dailyWeekEnd;
@@ -29,11 +29,12 @@ export function getBudget(
   customerType: string,
   days: string[]
 ) {
-  let dailyWeekEnd = hotel.weekend.customerType[customerType.toLowerCase()];
-  let dailyWeekDay =
+  const dailyWeekEndOnly =
+    hotel.weekend.customerType[customerType.toLowerCase()];
+  const dailyweekDaysOnly =
     hotel.weekday.customerType[customerType.toLocaleLowerCase()];
 
-  let budget = calculateBudget(days, dailyWeekEnd, dailyWeekDay);
+  const budget = calculateBudget(days, dailyWeekEndOnly, dailyweekDaysOnly);
 
   return {
     name: hotel.name,

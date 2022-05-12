@@ -14,8 +14,8 @@ function getCheapestHotel(input) {
     const dates = inputDate.split(",");
 
     const days = getByWeekDay(dates);
-    const budgets = applyingBudget(days, customerType, hotels);
-    const hotel = adviseCheapestHotel(budgets);
+    const budgetForHotels = applyingBudget(days, customerType, hotels);
+    const hotel = adviseCheapestHotel(budgetForHotels);
 
     return hotel;
   } catch (err) {

@@ -1,5 +1,4 @@
 import { getBudget } from "./calculateBudget";
-
 import { getByLowerPrice, getByHigherRating } from "../../utils/index";
 
 export type HotelProps = {
@@ -31,30 +30,33 @@ export class CreateBudgetServices {
     customerType: string,
     hotels: HotelProps[]
   ): HotelBudgetProps[] {
-    const hotelsBudget = [];
+    const budgetForHotels = [];
 
     hotels?.forEach((hotel) => {
-      hotelsBudget.push(getBudget(hotel, customerType, days));
+      budgetForHotels.push(getBudget(hotel, customerType, days));
     });
 
-    return hotelsBudget;
+    return budgetForHotels;
   }
+  //
 
   find(hotels: HotelBudgetProps[]) {
     const lowestPrice = getByLowerPrice(hotels);
-    const lowestPrices = hotels.filter(({ price }) => price === lowestPrice);
-    const budgets = lowestPrices.map(({ price }) => price);
+    const lowestHotelsPrices = hotels.filter(
+      ({ price }) => price === lowestPrice
+    );
+    const budgets = lowestHotelsPrices.map(({ price }) => price);
 
-    const isDuplicate = new Set(budgets).size !== budgets.length;
+    const isDuplicated = new Set(budgets).size !== budgets.length;
 
-    if (isDuplicate) {
+    if (isDuplicated) {
       const higherRating = getByHigherRating(hotels);
       const [hotel] = hotels.filter(({ rating }) => rating === higherRating);
 
       return hotel.name;
     }
 
-    const { name } = lowestPrices[0];
+    const { name } = lowestHotelsPrices[0];
 
     return name;
   }

@@ -7,17 +7,17 @@ export type HotelBudgetProps = {
 };
 
 export class BudgetController {
-  adviseCheapestHotel(hotels: HotelBudgetProps[]) {
-    const createBudgetServices = new CreateBudgetServices();
-    const hotel = createBudgetServices.find(hotels);
-
-    return hotel;
-  }
-
   applyingBudget(days: string[], customerType: string, hotels: HotelProps[]) {
     const createBudgetServices = new CreateBudgetServices();
     const budgets = createBudgetServices.execute(days, customerType, hotels);
 
     return budgets;
+  }
+
+  adviseCheapestHotel(hotels: HotelBudgetProps[]) {
+    const createBudgetServices = new CreateBudgetServices();
+    const hotel = createBudgetServices.find(hotels);
+
+    return hotel;
   }
 }
