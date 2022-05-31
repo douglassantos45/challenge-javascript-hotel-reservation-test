@@ -1,14 +1,14 @@
-module.exports = [
+export default [
   {
     name: "Bridgewood",
     rating: 4,
-    weekday: {
+    weekdays: {
       customerType: {
         regular: 160,
         rewards: 110,
       },
     },
-    weekend: {
+    weekends: {
       customerType: {
         regular: 50,
         rewards: 60,
@@ -18,13 +18,13 @@ module.exports = [
   {
     name: "Lakewood",
     rating: 3,
-    weekday: {
+    weekdays: {
       customerType: {
         regular: 110,
         rewards: 80,
       },
     },
-    weekend: {
+    weekends: {
       customerType: {
         regular: 90,
         rewards: 80,
@@ -34,13 +34,13 @@ module.exports = [
   {
     name: "Ridgewood",
     rating: 5,
-    weekday: {
+    weekdays: {
       customerType: {
         regular: 220,
         rewards: 100,
       },
     },
-    weekend: {
+    weekends: {
       customerType: {
         regular: 150,
         rewards: 40,

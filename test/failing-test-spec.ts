@@ -1,9 +1,5 @@
-"use strict";
-
-const chai = require("chai");
-const expect = chai.expect;
-const hotels = require("../src/main");
-const getCheapestHotel = hotels.getCheapestHotel;
+import { getCheapestHotel } from "../src/main";
+import { expect } from "chai";
 
 describe("test", function () {
   it("should return Lakewood", function () {
@@ -36,11 +32,5 @@ describe("test", function () {
         "Rewards: 16Mar2009(mon), 17Mar2009(tues), 18Mar2009(wed), 19Mar2009(thur), 20Mar2009(fri), 21Mar2009(sat), 22Mar2009(sun)"
       )
     ).to.equal("Lakewood");
-  });
-
-  it("should return Error", function () {
-    expect(getCheapestHotel()).to.equal(
-      "Ops! There was an error getting the cheapest hotel."
-    );
   });
 });

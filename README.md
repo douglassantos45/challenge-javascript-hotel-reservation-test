@@ -15,3 +15,5 @@ $ yarn test
 ```
 
 **After implementing your solution, it should pass the unit tests available.**
+
+Project carried out for an internship at Syngenta Digital, whose challenge was to create an algorithm to recommend the cheapest hotel
